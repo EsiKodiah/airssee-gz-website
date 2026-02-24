@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRSSEE-GZ | AI-Powered Mine Reclamation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Newsreader:wght@400;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --earth-dark: #1a2f1f;
+            --earth-medium: #2d5a3d;
+            --earth-light: #4a7c59;
+            --sand: #d4a574;
+            --sky: #7fb3d5;
+            --rust: #b85c4f;
+            --cream: #f5f1e8;
+            --white: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Newsreader', serif;
+            background: var(--cream);
+            color: var(--earth-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(245, 241, 232, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 3rem;
+            z-index: 1000;
+            border-bottom: 2px solid var(--earth-dark);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'DM Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            color: var(--earth-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--earth-dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--rust);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 3rem;
+            background: 
+                linear-gradient(135deg, rgba(42, 90, 61, 0.05) 0%, transparent 60%),
+                linear-gradient(45deg, rgba(212, 165, 116, 0.08) 0%, transparent 50%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(127, 179, 213, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-50px, 50px) scale(1.1); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--earth-dark);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.4rem;
+            color: var(--earth-medium);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--earth-medium);
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Newsreader', serif;
+        }
+
+        .btn-primary {
+            background: var(--earth-dark);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover {
+            background: var(--earth-medium);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--earth-dark);
+            border: 2px solid var(--earth-dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--earth-dark);
+            color: var(--cream);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 2rem;
+            border-left: 4px solid var(--rust);
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateX(10px);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--rust);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--earth-medium);
+            font-weight: 600;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--earth-dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--rust), transparent);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--earth-medium);
+            margin-bottom: 3rem;
+            max-width: 700px;
+        }
+
+        /* Problem & Solution */
+        .problem-solution {
+            background: white;
+            padding: 6rem 3rem;
+        }
+
+        .ps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .ps-card {
+            padding: 3rem;
+            border-radius: 0;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, rgba(184, 92, 79, 0.1) 0%, transparent 100%);
+            border-left: 5px solid var(--rust);
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, rgba(45, 90, 61, 0.1) 0%, transparent 100%);
+            border-left: 5px solid var(--earth-medium);
+        }
+
+        .ps-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+
+        .ps-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ps-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--earth-dark);
+        }
+
+        .ps-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ps-card li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--earth-medium);
+        }
+
+        .ps-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--rust);
+            font-weight: bold;
+        }
+
+        /* Objectives */
+        .objectives {
+            background: var(--earth-dark);
+            color: var(--cream);
+        }
+
+        .objectives .section-title,
+        .objectives .section-subtitle {
+            color: var(--cream);
+        }
+
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .objective-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .objective-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sand), var(--sky));
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .objective-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .objective-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .objective-number {
+            font-family: 'DM Mono', monospace;
+            font-size: 3rem;
+            color: var(--sand);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .objective-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+
+        /* Methodology */
+        .methodology {
+            background: var(--cream);
+        }
+
+        .phases {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .phase {
+            background: white;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2rem;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .phase:hover {
+            border-left-color: var(--rust);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .phase-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--sand);
+            line-height: 1;
+        }
+
+        .phase-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--earth-dark);
+        }
+
+        .phase-content p {
+            color: var(--earth-medium);
+            margin-bottom: 1rem;
+        }
+
+        .phase-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .highlight-tag {
+            background: var(--earth-light);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 20px;
+        }
+
+        /* Team */
+        .team {
+            background: linear-gradient(135deg, var(--earth-dark) 0%, var(--earth-medium) 100%);
+            color: var(--cream);
+        }
+
+        .team .section-title,
+        .team .section-subtitle {
+            color: var(--cream);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .country-team {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .country-team h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--sand);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .country-flag {
+            font-size: 2rem;
+        }
+
+        .team-member {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .team-member:last-child {
+            border-bottom: none;
+        }
+
+        .member-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--sand);
+            flex-shrink: 0;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .team-member:hover .member-photo {
+            transform: scale(1.1);
+            border-color: var(--sky);
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 0.3rem;
+        }
+
+        .member-role {
+            color: var(--sand);
+            font-size: 0.95rem;
+        }
+
+        /* Impact */
+        .impact {
+            background: white;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .impact-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--cream) 0%, white 100%);
+            border-top: 4px solid var(--rust);
+            transition: all 0.3s;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+
+        .impact-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--earth-dark);
+        }
+
+        .impact-card p {
+            color: var(--earth-medium);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--earth-dark);
+            color: var(--cream);
+            padding: 4rem 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--sand);
+        }
+
+        .footer-links h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+            color: var(--sand);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--sand);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(245, 241, 232, 0.6);
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .ps-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .objectives-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo">AIRSSEE-GZ</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#problem">Challenge</a></li>
+                <li><a href="#objectives">Objectives</a></li>
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#impact">Impact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Leveraging AI for Sustainable Mine Reclamation</h1>
+                <div class="subtitle">Restoring ecosystems through intelligent technology</div>
+                <p>A groundbreaking research initiative combining artificial intelligence and remote sensing to transform mine reclamation practices in Ghana and Zambia, creating a pathway toward environmental sustainability and community wellbeing.</p>
+                <div class="cta-buttons">
+                    <a href="#objectives" class="btn btn-primary">Explore the Project</a>
+                    <a href="#team" class="btn btn-secondary">Meet the Team</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-box">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Countries Collaborating</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Research Phases</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">AI</div>
+                    <div class="stat-label">Powered Solutions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Environmental Impact</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem & Solution -->
+    <section class="problem-solution" id="problem">
+        <div class="section-header fade-in">
+            <h2 class="section-title">The Challenge We're Addressing</h2>
+            <p class="section-subtitle">Mining drives economic growth but leaves lasting environmental scars. We're building the bridge between extraction and restoration.</p>
+        </div>
+        <div class="ps-grid">
+            <div class="ps-card problem-card fade-in">
+                <div class="ps-icon">⚠️</div>
+                <h3>Current Challenges</h3>
+                <ul>
+                    <li>Extensive deforestation and habitat loss</li>
+                    <li>Severe soil contamination with heavy metals</li>
+                    <li>Water pollution affecting communities</li>
+                    <li>Limited monitoring capabilities</li>
+                    <li>Inefficient resource allocation</li>
+                    <li>Lack of predictive decision-support tools</li>
+                    <li>Inadequate stakeholder engagement</li>
+                    <li>Traditional methods unable to keep pace</li>
+                </ul>
+            </div>
+            <div class="ps-card solution-card fade-in">
+                <div class="ps-icon">🌱</div>
+                <h3>Our AI-Driven Solution</h3>
+                <ul>
+                    <li>Satellite & drone remote sensing integration</li>
+                    <li>Machine learning for contamination mapping</li>
+                    <li>Predictive vegetation recovery models</li>
+                    <li>Real-time environmental monitoring with IoT</li>
+                    <li>Web-based decision support dashboard</li>
+                    <li>Mobile app for field personnel</li>
+                    <li>Community-centered restoration strategies</li>
+                    <li>Policy integration and stakeholder training</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objectives -->
+    <section class="objectives" id="objectives">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Project Objectives</h2>
+            <p class="section-subtitle">Five interconnected objectives driving comprehensive mine reclamation transformation</p>
+        </div>
+        <div class="objectives-grid">
+            <div class="objective-card fade-in">
+                <div class="objective-number">01</div>
+                <h3>Satellite & Drone Analysis</h3>
+                <p>Acquire and process Sentinel-2 and Landsat-8 imagery alongside high-resolution drone surveys to assess soil conditions, vegetation patterns, and erosion risks across mining regions.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">02</div>
+                <h3>AI Model Development</h3>
+                <p>Develop CNN models for land classification, Random Forest algorithms for soil contamination mapping, and NDVI-based regression for vegetation recovery prediction.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">03</div>
+                <h3>Field Validation</h3>
+                <p>Conduct ground-truthing at 30-50 mining sites, validating AI predictions through portable test kits, laboratory analysis, and real-world performance assessment.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">04</div>
+                <h3>Decision Support System</h3>
+                <p>Build a web dashboard and Progressive Web App integrating IoT sensors, satellite imagery, and predictive analytics for mining stakeholders and regulators.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">05</div>
+                <h3>Policy Integration</h3>
+                <p>Organize workshops, develop policy briefs, create AI-based monitoring protocols compatible with regulatory frameworks, and facilitate adoption through pilot projects.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology -->
+    <section class="methodology" id="methodology">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Research Methodology</h2>
+            <p class="section-subtitle">A comprehensive six-phase approach combining technology, field validation, and stakeholder engagement</p>
+        </div>
+        <div class="phases">
+            <div class="phase fade-in">
+                <div class="phase-number">01</div>
+                <div class="phase-content">
+                    <h3>Data Collection & Preprocessing</h3>
+                    <p>Multi-temporal satellite imagery acquisition, high-resolution drone surveys, IoT sensor deployment, and comprehensive environmental sampling across selected mining sites.</p>
+                    <div class="phase-highlights">
+                        <span class="highlight-tag">Sentinel-2 & Landsat-8</span>
+                        <span class="highlight-tag">Drone Surveys</span>
+                        <span class="highlight-tag">IoT Monitoring</span>
+                        <span class="highlight-tag">Soil & Water Analysis</span>
+                    </div>
+                </div>
+            </div>
+            <div class="phase fade-in">
+                <div class="phase-number">02</div>
+                <div class="phase-content">
+                    <h3>AI Model Development & Training</h3>
+                    <p>Developing U-Net CNNs for land cover classification, ensemble machine learning for contamination mapping, and time-series analysis for vegetation recovery prediction.</p>
+                    <div class="phase-highlights">
+                        <span class="highlight-tag">CNN Architecture</span>
+                        <span class="highlight-tag">Random Forest</span>
+                        <span class="highlight-tag">XGBoost</span>
+                        <span class="highlight-tag">NDVI Modeling</span>
+                    </div>
+                </div>
+            </div>
+            <div class="phase fade-in">
+                <div class="phase-number">03</div>
+                <div class="phase-content">
+                    <h3>Field Validation & Refinement</h3>
+                    <p>Comprehensive ground-truthing campaigns, spectroradiometer measurements, portable XRF validation, and iterative model refinement based on field performance.</p>
+                    <div class="phase-highlights">
+                        <span class="highlight-tag">30-50 Sites</span>
+                        <span class="highlight-tag">Ground Surveys</span>
+                        <span class="highlight-tag">Lab Analysis</span>
+                        <span class="highlight-tag">Model Optimization</span>
+                    </div>
+                </div>
+            </div>
+            <div class="phase fade-in">
+                <div class="phase-number">04</div>
+                <div class="phase-content">
+                    <h3>System Integration & Deployment</h3>
+                    <p>Building scalable web applications with React.js, developing mobile PWAs for field use, creating real-time visualization dashboards, and implementing automated data pipelines.</p>
+                    <div class="phase-highlights">
+                        <span class="highlight-tag">Web Dashboard</span>
+                        <span class="highlight-tag">Mobile App</span>
+                        <span class="highlight-tag">Cloud Infrastructure</span>
+                        <span class="highlight-tag">API Integration</span>
+                    </div>
+                </div>
+            </div>
+            <div class="phase fade-in">
+                <div class="phase-number">05</div>
+                <div class="phase-content">
+                    <h3>Stakeholder Engagement & Policy</h3>
+                    <p>Conducting technical training workshops, organizing community engagement sessions, developing policy briefs and guidelines, establishing regulatory pilot projects.</p>
+                    <div class="phase-highlights">
+                        <span class="highlight-tag">Workshops</span>
+                        <span class="highlight-tag">Policy Briefs</span>
+                        <span class="highlight-tag">EIA Integration</span>
+                        <span class="highlight-tag">Community Participation</span>
+                    </div>
+                </div>
+            </div>
+            <div class="phase fade-in">
+                <div class="phase-number">06</div>
+                <div class="phase-content">
+                    <h3>Evaluation, Scaling & Dissemination</h3>
+                    <p>Publishing research findings, conducting impact assessments, developing scaling strategies for nationwide coverage, and establishing long-term sustainability plans.</p>
+                    <div class="phase-highlights">
+                        <span class="highlight-tag">Journal Publications</span>
+                        <span class="highlight-tag">Expert Review</span>
+                        <span class="highlight-tag">Scaling Framework</span>
+                        <span class="highlight-tag">Open Data</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team" id="team">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Research Team</h2>
+            <p class="section-subtitle">An international collaboration of leading experts in AI, geospatial engineering, environmental science, and policy</p>
+        </div>
+        <div class="team-grid">
+            <div class="country-team fade-in">
+                <h3><span class="country-flag">🇬🇭</span> Ghana Team</h3>
+                <div class="team-member">
+                    <img src="festus.jpg" alt="Dr. Festus Kunkyin Saadaari" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Dr. Festus Kunkyin Saadaari</div>
+                        <div class="member-role">Principal Investigator | Mine Geotechnical & AI Expert | UMaT</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="sylvester.jpg" alt="Dr. Sylvester Akpah" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Dr. Sylvester Akpah</div>
+                        <div class="member-role">Co-Principal Investigator | Software Engineering | UMaT</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="dominic.jpg" alt="Dr. Dominic Yellezuome" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Dr. Dominic Yellezuome</div>
+                        <div class="member-role">Renewable Energy & Soil Science Expert | UMaT</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="frank.jpg" alt="Mr. Frank Anati" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Mr. Frank Anati</div>
+                        <div class="member-role">IT & Cybersecurity Expert | Ghana Health Service</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="emma.jpg" alt="Mrs. Emma Wilson" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Mrs. Emma Wilson</div>
+                        <div class="member-role">AI & Data Science Researcher | Ghana Health Service</div>
+                    </div>
+                </div>
+            </div>
+            <div class="country-team fade-in">
+                <h3><span class="country-flag">🇿🇲</span> Zambia Team</h3>
+                <div class="team-member">
+                    <img src="wilma.jpg" alt="Prof. Wilma Nchito" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Prof. Wilma Nchito</div>
+                        <div class="member-role">Principal Investigator | Social Impacts of Mining | UNZA</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="gilbert.jpg" alt="Dr. Gilbert Siame" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Dr. Gilbert Siame</div>
+                        <div class="member-role">Urban & Spatial Planning Expert | UNZA</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="chibuye.jpg" alt="Ms. Chibuye Florence Kunda" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Ms. Chibuye Florence Kunda</div>
+                        <div class="member-role">Environment, Gender & Climate Change | UNZA</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="beverly.jpg" alt="Ms. Beverly M. Mushili" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Ms. Beverly M. Mushili</div>
+                        <div class="member-role">Environmental Scientist | Food Systems & Climate | UNZA</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="clement.jpg" alt="Mr. Clement Sichimwa" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Mr. Clement Sichimwa</div>
+                        <div class="member-role">Tourism & Environmental Expert | UNZA</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="chongo.jpg" alt="Dr. Chongo Twiza Kaulule" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Dr. Chongo Twiza Kaulule</div>
+                        <div class="member-role">Spatial Planning Expert | CURP, UNZA</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="garikai.jpg" alt="Dr. Garikai Membele" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Dr. Garikai Membele</div>
+                        <div class="member-role">Geospatial, GIS & Remote Sensing Specialist</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="marseal.jpg" alt="Dr. Marseal Fisonga" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Dr. Marseal Fisonga</div>
+                        <div class="member-role">Geotechnical Engineer | UNZA</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="levy.jpg" alt="Mr. Levy Syanseke" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Mr. Levy Syanseke</div>
+                        <div class="member-role">Internet Access & Media Expert | Internet Society Zambia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact -->
+    <section class="impact" id="impact">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Expected Impact</h2>
+            <p class="section-subtitle">Transforming mine reclamation through innovation, collaboration, and sustainable technology</p>
+        </div>
+        <div class="impact-grid">
+            <div class="impact-card fade-in">
+                <div class="impact-icon">🌍</div>
+                <h3>Environmental Restoration</h3>
+                <p>Accelerated ecosystem recovery through data-driven reclamation strategies, improving soil health, water quality, and biodiversity.</p>
+            </div>
+            <div class="impact-card fade-in">
+                <div class="impact-icon">🤝</div>
+                <h3>Community Wellbeing</h3>
+                <p>Enhanced livelihoods through agroforestry and ecotourism on reclaimed lands, with meaningful community participation in restoration efforts.</p>
+            </div>
+            <div class="impact-card fade-in">
+                <div class="impact-icon">📊</div>
+                <h3>Policy Innovation</h3>
+                <p>Integration of AI-based monitoring into Environmental Impact Assessments and regulatory frameworks across both countries.</p>
+            </div>
+            <div class="impact-card fade-in">
+                <div class="impact-icon">🎓</div>
+                <h3>Knowledge Transfer</h3>
+                <p>Capacity building through workshops, open-source tools, and bilateral collaboration, positioning Ghana and Zambia as regional leaders.</p>
+            </div>
+            <div class="impact-card fade-in">
+                <div class="impact-icon">🔬</div>
+                <h3>Scientific Advancement</h3>
+                <p>Peer-reviewed publications, open data repositories, and reproducible research methodologies advancing the field globally.</p>
+            </div>
+            <div class="impact-card fade-in">
+                <div class="impact-icon">⚖️</div>
+                <h3>Gender & Inclusion</h3>
+                <p>40% female participation and 30% youth engagement, empowering underrepresented groups in STEM and environmental leadership.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>AIRSSEE-GZ Project</h3>
+                <p>Leveraging AI and Remote Sensing for Predictive Mine Reclamation to Enhance Environmental Sustainability in Ghana and Zambia.</p>
+                <p style="margin-top: 1rem; opacity: 0.8;">A bilateral research collaboration between the University of Mines and Technology (UMaT), Ghana, and the University of Zambia (UNZA).</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About Project</a></li>
+                    <li><a href="#objectives">Objectives</a></li>
+                    <li><a href="#methodology">Methodology</a></li>
+                    <li><a href="#team">Research Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Partners</h4>
+                <ul>
+                    <li><a href="#">University of Mines and Technology</a></li>
+                    <li><a href="#">University of Zambia</a></li>
+                    <li><a href="#">MESTI Ghana</a></li>
+                    <li><a href="#">NSTC Zambia</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 AIRSSEE-GZ Research Project. All rights reserved. | Advancing sustainable mining practices through technology and collaboration.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add active state to nav on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                        link.style.color = 'var(--earth-dark)';
+                    });
+                    if (navLink) {
+                        navLink.style.color = 'var(--rust)';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
