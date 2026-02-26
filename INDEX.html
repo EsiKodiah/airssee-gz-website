@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIRSSEE-GZ | AI-Powered Mine Reclamation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Newsreader:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --earth-dark:#1a2f1f;
+    --earth-medium:#2d5a3d;
+    --earth-light:#4a7c59;
+    --sand:#d4a574;
+    --cream:#f5f1e8;
+    --white:#ffffff;
+}
+
+body{
+    margin:0;
+    font-family:'Newsreader',serif;
+    background:var(--cream);
+    color:var(--earth-dark);
+}
+
+/* ---------- TEAM SECTION PREMIUM ---------- */
+
+.team{
+    background:linear-gradient(135deg,var(--earth-dark),var(--earth-medium));
+    color:var(--cream);
+    padding:6rem 3rem;
+}
+
+.section-title{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;
+    margin-bottom:1rem;
+}
+
+.section-subtitle{
+    max-width:700px;
+    margin-bottom:4rem;
+}
+
+.country-team{
+    margin-bottom:5rem;
+}
+
+.country-team h3{
+    font-family:'Playfair Display',serif;
+    font-size:2.2rem;
+    color:var(--sand);
+    margin-bottom:2.5rem;
+}
+
+.team-members{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:3rem;
+}
+
+.team-member{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.member-photo{
+    width:170px;
+    height:170px;
+    object-fit:cover;
+    border-radius:50%;
+    margin-bottom:1.5rem;
+    filter:grayscale(10%);
+    transition:all 0.4s ease;
+}
+
+.team-member:hover .member-photo{
+    filter:grayscale(0%);
+    transform:scale(1.03);
+}
+
+.member-name{
+    font-family:'Playfair Display',serif;
+    font-size:1.2rem;
+    font-weight:700;
+    color:var(--white);
+    margin-bottom:0.4rem;
+}
+
+.member-role{
+    font-size:0.95rem;
+    color:rgba(255,255,255,0.75);
+    line-height:1.4;
+    max-width:260px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .team{
+        padding:4rem 1.5rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="team" id="team">
+    <h2 class="section-title">Research Team</h2>
+    <p class="section-subtitle">
+        An international collaboration of leading experts in AI, geospatial engineering, environmental science, and policy.
+    </p>
+
+    <!-- GHANA TEAM -->
+    <div class="country-team">
+        <h3>🇬🇭 Ghana Team</h3>
+        <div class="team-members">
+
+            <div class="team-member">
+                <img src="Dr. Festus Kunkyin-Saadaari.jpg" class="member-photo">
+                <div class="member-name">Dr. Festus Kunkyin Saadaari</div>
+                <div class="member-role">Principal Investigator | Mine Geotechnical & AI Expert | UMaT</div>
+            </div>
+
+            <div class="team-member">
+                <img src="Dr.Sylvester Akpah.jpg" class="member-photo">
+                <div class="member-name">Dr. Sylvester Akpah</div>
+                <div class="member-role">Co-Principal Investigator | Software Engineering | UMaT</div>
+            </div>
+
+            <div class="team-member">
+                <img src="Dr. Dominic Yellezuome.jpg" class="member-photo">
+                <div class="member-name">Dr. Dominic Yellezuome</div>
+                <div class="member-role">Renewable Energy & Soil Science Expert | UMaT</div>
+            </div>
+
+            <div class="team-member">
+                <img src="Anati Frank.jpg" class="member-photo">
+                <div class="member-name">Mr. Frank Anati</div>
+                <div class="member-role">IT & Cybersecurity Expert | Ghana Health Service</div>
+            </div>
+
+            <div class="team-member">
+                <img src="Esi Kodiah.jpg" class="member-photo">
+                <div class="member-name">Mrs. Emma Kodiah</div>
+                <div class="member-role">AI & Data Science Researcher | Ghana Health Service</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ZAMBIA TEAM -->
+    <div class="country-team">
+        <h3>🇿🇲 Zambia Team</h3>
+        <div class="team-members">
+
+            <div class="team-member">
+                <img src="wilma.jpg" class="member-photo">
+                <div class="member-name">Prof. Wilma Nchito</div>
+                <div class="member-role">Principal Investigator | Social Impacts of Mining | UNZA</div>
+            </div>
+
+            <div class="team-member">
+                <img src="gilbert.jpg" class="member-photo">
+                <div class="member-name">Dr. Gilbert Siame</div>
+                <div class="member-role">Urban & Spatial Planning Expert | UNZA</div>
+            </div>
+
+            <div class="team-member">
+                <img src="chibuye.jpg" class="member-photo">
+                <div class="member-name">Ms. Chibuye Florence Kunda</div>
+                <div class="member-role">Environment, Gender & Climate Change | UNZA</div>
+            </div>
+
+            <div class="team-member">
+                <img src="beverly.jpg" class="member-photo">
+                <div class="member-name">Ms. Beverly M. Mushili</div>
+                <div class="member-role">Environmental Scientist | Food Systems & Climate | UNZA</div>
+            </div>
+
+            <div class="team-member">
+                <img src="clement.jpg" class="member-photo">
+                <div class="member-name">Mr. Clement Sichimwa</div>
+                <div class="member-role">Tourism & Environmental Expert | UNZA</div>
+            </div>
+
+            <div class="team-member">
+                <img src="chongo.jpg" class="member-photo">
+                <div class="member-name">Dr. Chongo Twiza Kaulule</div>
+                <div class="member-role">Spatial Planning Expert | CURP, UNZA</div>
+            </div>
+
+            <div class="team-member">
+                <img src="garikai.jpg" class="member-photo">
+                <div class="member-name">Dr. Garikai Membele</div>
+                <div class="member-role">Geospatial, GIS & Remote Sensing Specialist</div>
+            </div>
+
+            <div class="team-member">
+                <img src="marseal.jpg" class="member-photo">
+                <div class="member-name">Dr. Marseal Fisonga</div>
+                <div class="member-role">Geotechnical Engineer | UNZA</div>
+            </div>
+
+            <div class="team-member">
+                <img src="levy.jpg" class="member-photo">
+                <div class="member-name">Mr. Levy Syanseke</div>
+                <div class="member-role">Internet Access & Media Expert | Internet Society Zambia</div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>
